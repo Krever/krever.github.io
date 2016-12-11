@@ -1,0 +1,39 @@
+# Site settings
+title: Wojciech Pituła
+description: 'Heuristically Optimized Person'
+url: 'http://joshgerdes.com/jekyll-uno'
+baseurl: '/'
+google_analytics: 'UA-88803396-1'
+disqus_shortname: 'kreverspace'
+
+author:
+  name: 'Wojciech Pituła'
+  email: w.pitula@gmail.com
+  twitter_username: Krever01
+  #facebook_username: joshgerdes
+  github_username:  Krever
+  linkedin_username:  krever
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
