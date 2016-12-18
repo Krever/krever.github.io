@@ -51,7 +51,7 @@ object Config {
 As you can see, `Config` code is rather verbose. Every config entry is triplicated(application.conf, name of the variable and argument to the `getXY`. Moreover, for each entry we need to specify from which config we want to get our entry. That made me think.
 
 ### static-config
-So I developed this tiny library to scrap (almost) all of this boilerplate. I has to mention it wouldn't be possible without great [lihaoyi/sourcecode](https://github.com/lihaoyi/sourcecode).
+So I developed this tiny library to scrap (almost) all of this boilerplate. I have to mention it wouldn't be possible without great [lihaoyi/sourcecode](https://github.com/lihaoyi/sourcecode).
 
 Here is above example written with *static-config*.
 
