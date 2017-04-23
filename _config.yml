@@ -1,7 +1,7 @@
 # Site settings
 title: Wojciech Pituła
 description: 'Heuristically Optimized Person'
-url: 'http://joshgerdes.com/jekyll-uno'
+url: 'http://w.pitula.me'
 baseurl: '/'
 google_analytics: 'UA-88803396-1'
 disqus_shortname: 'kreverspace'
