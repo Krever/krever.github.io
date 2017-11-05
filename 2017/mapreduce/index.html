@@ -157,7 +157,7 @@
     <p>5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
 In this article we will see how to translate it to scala and how far we can push it’s polimorphism.</p>
 
-<p>Sadly I wasn’t able to find original tweet today, but f I remember correctly that’s the essence i:</p>
+<p>Sadly I wasn’t able to find original tweet today, but if I remember correctly that’s the essence:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">A</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">B</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">C</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">A</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">D</span><span class="p">]</span>  
 </code></pre>
@@ -191,7 +191,7 @@ In this article we will see how to translate it to scala and how far we can push
 </code></pre>
 </div>
 <p>I’m cheating a bit, because I modified the semantics so the input is a key-value pair instead of simple type, this gets us closer 
-to the Hadoop implementation. We got three key-value pairs, mapper input <code class="highlighter-rouge">(mK, mV)</code>, reducer input <code class="highlighter-rouge">(rK, rV)</code> and output <code class="highlighter-rouge">(oK, oV)</code>
+to the Hadoop implementation. We got three key-value pairs, mapper input <code class="highlighter-rouge">(mK, mV)</code>, reducer input <code class="highlighter-rouge">(rK, rV)</code> and output <code class="highlighter-rouge">(oK, oV)</code>.
 Now lets see how can we implement and run this method.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
@@ -216,12 +216,12 @@ Now lets see how can we implement and run this method.</p>
 </span></code></pre>
 </div>
 
-<p>So we could stop at this point, but lets go a little further and see what else can we do with this signature.</p>
+<p>We could stop at this point, but lets go a little further and see what else can we do with this signature.</p>
 
 <h2 id="generalization">Generalization</h2>
 
 <p>Let’s try to make our implementation agnostic about the type of collection we are using and make it able to work with
-<code class="highlighter-rouge">List</code>s, <code class="highlighter-rouge">Set</code>s and other.</p>
+<code class="highlighter-rouge">List</code>s, <code class="highlighter-rouge">Set</code>s and other collections.</p>
 
 <h3 id="typeclasses">Typeclasses</h3>
 <p>The first approach uses <code class="highlighter-rouge">cats</code> typeclasses to make sure chosen collection delivers all required operations.</p>
@@ -506,7 +506,8 @@ It’s enough to just mix in the interpreter to the application definition to ge
 </div>
 
 <p>The technique used here for unifying different implementations of the same problem is called <code class="highlighter-rouge">Object Algebras</code>.
-It is used as a ground concept in <a href="https://github.com/julienrf/endpoints/">julienrf/endpoints</a> library. 
+It is used as a ground concept in <a href="https://github.com/julienrf/endpoints/">julienrf/endpoints</a> library where we define an algebra for
+defining http endpoints and implement various interpreters for it. 
 This article is just an example of using this technique and if you are curious what are the benefits and problems with it I encourage 
 to study it further. 
 Maybe I will have chance to present this concept more deeply on one of the scala conferences soon.</p>

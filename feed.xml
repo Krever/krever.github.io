@@ -5,8 +5,8 @@
     <description>Heuristically Optimized Person</description>
     <link>http://w.pitula.me//</link>
     <atom:link href="http://w.pitula.me//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 05 Nov 2017 14:42:47 +0100</pubDate>
-    <lastBuildDate>Sun, 05 Nov 2017 14:42:47 +0100</lastBuildDate>
+    <pubDate>Sun, 05 Nov 2017 14:54:40 +0100</pubDate>
+    <lastBuildDate>Sun, 05 Nov 2017 14:54:40 +0100</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
@@ -14,7 +14,7 @@
         <description>&lt;p&gt;5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
 In this article we will see how to translate it to scala and how far we can push it’s polimorphism.&lt;/p&gt;
 
-&lt;p&gt;Sadly I wasn’t able to find original tweet today, but f I remember correctly that’s the essence i:&lt;/p&gt;
+&lt;p&gt;Sadly I wasn’t able to find original tweet today, but if I remember correctly that’s the essence:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mapReduce&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  
 &lt;/code&gt;&lt;/pre&gt;
@@ -48,7 +48,7 @@ In this article we will see how to translate it to scala and how far we can push
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;I’m cheating a bit, because I modified the semantics so the input is a key-value pair instead of simple type, this gets us closer 
-to the Hadoop implementation. We got three key-value pairs, mapper input &lt;code class=&quot;highlighter-rouge&quot;&gt;(mK, mV)&lt;/code&gt;, reducer input &lt;code class=&quot;highlighter-rouge&quot;&gt;(rK, rV)&lt;/code&gt; and output &lt;code class=&quot;highlighter-rouge&quot;&gt;(oK, oV)&lt;/code&gt;
+to the Hadoop implementation. We got three key-value pairs, mapper input &lt;code class=&quot;highlighter-rouge&quot;&gt;(mK, mV)&lt;/code&gt;, reducer input &lt;code class=&quot;highlighter-rouge&quot;&gt;(rK, rV)&lt;/code&gt; and output &lt;code class=&quot;highlighter-rouge&quot;&gt;(oK, oV)&lt;/code&gt;.
 Now lets see how can we implement and run this method.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapReduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;mK&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;mV&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;rK&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;rV&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;oK&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;oV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;](&lt;/span&gt;
@@ -73,12 +73,12 @@ Now lets see how can we implement and run this method.&lt;/p&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;So we could stop at this point, but lets go a little further and see what else can we do with this signature.&lt;/p&gt;
+&lt;p&gt;We could stop at this point, but lets go a little further and see what else can we do with this signature.&lt;/p&gt;
 
 &lt;h2 id=&quot;generalization&quot;&gt;Generalization&lt;/h2&gt;
 
 &lt;p&gt;Let’s try to make our implementation agnostic about the type of collection we are using and make it able to work with
-&lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt;s, &lt;code class=&quot;highlighter-rouge&quot;&gt;Set&lt;/code&gt;s and other.&lt;/p&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt;s, &lt;code class=&quot;highlighter-rouge&quot;&gt;Set&lt;/code&gt;s and other collections.&lt;/p&gt;
 
 &lt;h3 id=&quot;typeclasses&quot;&gt;Typeclasses&lt;/h3&gt;
 &lt;p&gt;The first approach uses &lt;code class=&quot;highlighter-rouge&quot;&gt;cats&lt;/code&gt; typeclasses to make sure chosen collection delivers all required operations.&lt;/p&gt;
@@ -363,7 +363,8 @@ It’s enough to just mix in the interpreter to the application definition to ge
 &lt;/div&gt;
 
 &lt;p&gt;The technique used here for unifying different implementations of the same problem is called &lt;code class=&quot;highlighter-rouge&quot;&gt;Object Algebras&lt;/code&gt;.
-It is used as a ground concept in &lt;a href=&quot;https://github.com/julienrf/endpoints/&quot;&gt;julienrf/endpoints&lt;/a&gt; library. 
+It is used as a ground concept in &lt;a href=&quot;https://github.com/julienrf/endpoints/&quot;&gt;julienrf/endpoints&lt;/a&gt; library where we define an algebra for
+defining http endpoints and implement various interpreters for it. 
 This article is just an example of using this technique and if you are curious what are the benefits and problems with it I encourage 
 to study it further. 
 Maybe I will have chance to present this concept more deeply on one of the scala conferences soon.&lt;/p&gt;
