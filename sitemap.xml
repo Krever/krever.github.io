@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+    
+    <url>
+      <loc>http://w.pitula.me/2017/mapreduce/</loc>
+      
+        <lastmod>2017-11-03T22:37:00+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/2017/typelevel-church-enc/</loc>
+      
+        <lastmod>2017-04-20T23:37:00+02:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/2017/scalar-2017/</loc>
+      
+        <lastmod>2017-04-07T23:37:00+02:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/2017/typeclasses-vs-polymorphism/</loc>
+      
+        <lastmod>2017-03-25T22:37:00+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/2016/static-config/</loc>
+      
+        <lastmod>2016-12-16T22:37:00+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/2016/monad-proof/</loc>
+      
+        <lastmod>2016-12-10T22:37:00+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+  
+    
+    <url>
+      <loc>http://w.pitula.me/categories/</loc>
+      
+        <lastmod>2017-11-05T14:42:47+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/feed.xml</loc>
+      
+        <lastmod>2017-11-05T14:42:47+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/</loc>
+      
+        <lastmod>2017-11-05T14:42:47+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/js/main.js</loc>
+      
+        <lastmod>2017-11-05T14:42:47+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+  
+    
+    <url>
+      <loc>http://w.pitula.me/tags/</loc>
+      
+        <lastmod>2017-11-05T14:42:47+01:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+</urlset>

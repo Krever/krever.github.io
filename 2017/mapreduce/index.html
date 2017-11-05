@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MapReduce, Cats, collection-strawman and Object Algebras</title>
+  <meta name="description" content="Heuristically Optimized Person">
+  <meta name="author" content="Wojciech Pituła">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Wojciech Pituła">
+  <meta name="twitter:description" content="Heuristically Optimized Person">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Wojciech Pituła">
+  <meta property="og:description" content="Heuristically Optimized Person">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://w.pitula.me//2017/mapreduce/">
+  <link rel="alternate" type="application/rss+xml" title="Wojciech Pituła" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Wojciech Pituła">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Wojciech Pituła</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Heuristically Optimized Person</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Wojciech Pituła blog" class="blog-button">Blog</a></li>
+              <li class="navigation__item"><a href="http://w.pitula.me/presentations" title="link to my presentations">Presentations</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/Krever01" title="@Krever01 on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/krever" title="krever on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/Krever" title="Krever on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:w.pitula@gmail.com" title="Email w.pitula@gmail.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="3 Nov 2017" class="post-meta__date date">3 Nov 2017</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#scala">scala</a> <a href="/tags/#bigdata">bigdata</a> </span>
+    </div>
+    <h1 class="post-title">MapReduce, Cats, collection-strawman and Object Algebras</h1>
+  </header>
+
+  <section class="post">
+    <p>5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
+In this article we will see how to translate it to scala and how far we can push it’s polimorphism.</p>
+
+<p>Sadly I wasn’t able to find original tweet today, but f I remember correctly that’s the essence i:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">A</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">B</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">C</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">A</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">D</span><span class="p">]</span>  
+</code></pre>
+</div>
+
+<p>Although this is completely correct, it’s not completely readable for humans. So I wrote a short response:</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">For this of us who don&#39;t speak mathish:<br /><br />mapReduce :: (record -&gt; [(key, mapped)]) -&gt; (key -&gt; [mapped] -&gt; reduced) -&gt; [record] -&gt; [reduced]</p>&mdash; Wojtek Pituła (@Krever01) <a href="https://twitter.com/Krever01/status/872377965547573248?ref_src=twsrc%5Etfw">June 7, 2017</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="haskell-explained">Haskell explained</h2>
+
+<p>Here is the relevant content with highlighting:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Record</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Key</span><span class="p">,</span> <span class="kt">Mapped</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Key</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Mapped</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Reduced</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Record</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Reduced</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<p>So what is really happening here is that we take the mapping function (mapper) <code class="highlighter-rouge">(Record -&gt; [(Key, Mapped)])</code>
+ and reducing function (reducer) <code class="highlighter-rouge">(Key -&gt; [Mapped] -&gt; Reduced)</code> and return the function that will take the set of
+ input records and transform them to the set of output records <code class="highlighter-rouge">[Record] -&gt; [Reduced]</code></p>
+
+<h2 id="lets-do-it-in-scala">Let’s do it in scala</h2>
+
+<p>While haskell version is extremely elegant I’m a Scala fan, so lets translate it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">map</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduce</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+</code></pre>
+</div>
+<p>I’m cheating a bit, because I modified the semantics so the input is a key-value pair instead of simple type, this gets us closer 
+to the Hadoop implementation. We got three key-value pairs, mapper input <code class="highlighter-rouge">(mK, mV)</code>, reducer input <code class="highlighter-rouge">(rK, rV)</code> and output <code class="highlighter-rouge">(oK, oV)</code>
+Now lets see how can we implement and run this method.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+  <span class="n">map</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+  <span class="n">reduce</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+<span class="o">)</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span>
+  <span class="k">_</span>
+    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="n">tupled</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">groupBy</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">_1</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">flatMap</span> <span class="o">{</span> <span class="k">case</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">reduce</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">_2</span><span class="o">))</span> <span class="o">}</span>
+    <span class="o">.</span><span class="n">toSeq</span> 
+
+
+<span class="k">val</span> <span class="n">wordCount</span> <span class="k">=</span> <span class="n">mapReduce</span><span class="o">(</span>
+  <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">1</span><span class="o">)),</span>
+  <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="o">))</span>
+<span class="o">)</span>
+<span class="c1">// wordCount: Seq[(Any, String)] =&gt; Seq[(String, Int)] = $$Lambda$1502/1086741722@1176f3cd
+</span>
+<span class="n">wordCount</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
+<span class="c1">// res1: Seq[(String, Int)] = Vector((z,1), (y,2), (x,2))
+</span></code></pre>
+</div>
+
+<p>So we could stop at this point, but lets go a little further and see what else can we do with this signature.</p>
+
+<h2 id="generalization">Generalization</h2>
+
+<p>Let’s try to make our implementation agnostic about the type of collection we are using and make it able to work with
+<code class="highlighter-rouge">List</code>s, <code class="highlighter-rouge">Set</code>s and other.</p>
+
+<h3 id="typeclasses">Typeclasses</h3>
+<p>The first approach uses <code class="highlighter-rouge">cats</code> typeclasses to make sure chosen collection delivers all required operations.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats._</span>
+<span class="k">import</span> <span class="nn">cats.implicits._</span>
+
+<span class="k">class</span> <span class="nc">MapReduce</span><span class="o">[</span><span class="kt">Coll</span><span class="o">[</span><span class="k">_</span><span class="o">]](</span><span class="k">implicit</span>
+  <span class="k">val</span> <span class="n">collMonad</span><span class="k">:</span> <span class="kt">Monad</span><span class="o">[</span><span class="kt">Coll</span><span class="o">],</span>
+  <span class="k">val</span> <span class="n">collFoldable</span><span class="k">:</span> <span class="kt">Foldable</span><span class="o">[</span><span class="kt">Coll</span><span class="o">],</span>
+  <span class="k">val</span> <span class="n">collMonoid</span><span class="k">:</span> <span class="kt">MonoidK</span><span class="o">[</span><span class="kt">Coll</span><span class="o">]</span>
+<span class="o">)</span> <span class="o">{</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">mapF</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduceF</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">input</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">mappped</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)]</span> <span class="k">=</span> <span class="n">collMonad</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">input</span><span class="o">)(</span><span class="n">mapF</span><span class="o">.</span><span class="n">tupled</span><span class="o">)</span>
+      <span class="k">val</span> <span class="n">grouped</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">]]</span> <span class="k">=</span> <span class="n">mappped</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Map</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">]]().</span><span class="n">withDefaultValue</span><span class="o">(</span><span class="nc">Seq</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="n">state</span><span class="o">.</span><span class="n">updated</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">state</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
+      <span class="o">}</span>
+      <span class="k">val</span> <span class="n">reduced</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="n">collMonoid</span><span class="o">.</span><span class="n">empty</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)])</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="n">collMonoid</span><span class="o">.</span><span class="n">combineK</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="n">reduceF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">))</span>
+      <span class="o">}</span>
+      <span class="n">reduced</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+
+<span class="k">val</span> <span class="n">wordCount</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">MapReduce</span><span class="o">[</span><span class="kt">List</span><span class="o">]().</span><span class="n">mapReduce</span><span class="o">(</span>
+  <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">1</span><span class="o">)).</span><span class="n">toList</span><span class="o">,</span>
+  <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="o">))</span>
+<span class="o">)</span>
+<span class="n">wordCount</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
+</code></pre>
+</div>
+
+<p>This implementation is by no means perfect, but works well enough. It got a bit more complicated though.</p>
+
+<h3 id="weaker-types">Weaker types</h3>
+
+<p>Second approach uses least specific type possible from standard library, which turns out to be <code class="highlighter-rouge">Iterable</code>. To make it more interesting we 
+will use scala 2.13 and upcoming collection-strawman.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">map</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Iterable</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduce</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Iterable</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Iterable</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span>
+    <span class="k">_</span>
+      <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="n">tupled</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">groupMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">_1</span><span class="o">)(</span><span class="k">_</span><span class="o">.</span><span class="n">_2</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">toSeq</span>
+      <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">reduce</span><span class="o">.</span><span class="n">tupled</span><span class="o">)</span>
+
+  <span class="k">val</span> <span class="n">wordCount</span> <span class="k">=</span> <span class="n">mapReduce</span><span class="o">(</span>
+    <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="k">new</span> <span class="nc">ArrayOps</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">1</span><span class="o">))).</span><span class="n">toSeq</span><span class="o">,</span>
+    <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="o">))</span>
+  <span class="o">)</span>
+
+  <span class="n">wordCount</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
+  <span class="n">wordCount</span><span class="o">(</span><span class="nc">Set</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
+</code></pre>
+</div>
+
+<p>Here we have gave up the control over the context in which we perform the computations, so the result type is always <code class="highlighter-rouge">Iterable</code>. 
+Thanks to that we gained bigger space of usages but have to convert the result to know for sure what collection we get.
+This solution is not equivalent to typeclass-based but is simpler and may be good enough for some cases.</p>
+
+<h3 id="hadoop-mapreduce">Hadoop MapReduce</h3>
+
+<p>Now lets see how can we reuse the original signature to create something usable from Hadoop MR point of view.
+Instead of returning function we will return a pair of hadoop <code class="highlighter-rouge">Mapper</code> and <code class="highlighter-rouge">Reducer</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.lang</span>
+<span class="k">import</span> <span class="nn">org.apache.hadoop.mapreduce.</span><span class="o">{</span><span class="nc">Mapper</span><span class="o">,</span> <span class="nc">Reducer</span><span class="o">}</span>
+
+<span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+  <span class="n">mapF</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+  <span class="n">reduceF</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+<span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">],</span> <span class="nc">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">])</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">mapper</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">override</span> <span class="k">def</span> <span class="n">map</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">mK</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">mV</span><span class="o">,</span> <span class="n">context</span><span class="k">:</span> <span class="kt">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">]</span><span class="k">#</span><span class="nc">Context</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">mapF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">).</span><span class="n">foreach</span><span class="o">((</span><span class="n">context</span><span class="o">.</span><span class="n">write</span> <span class="k">_</span><span class="o">).</span><span class="n">tupled</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">val</span> <span class="n">reducer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">override</span> <span class="k">def</span> <span class="n">reduce</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">rK</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">lang.Iterable</span><span class="o">[</span><span class="kt">rV</span><span class="o">],</span> <span class="n">context</span><span class="k">:</span> <span class="kt">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span><span class="k">#</span><span class="nc">Context</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="k">import</span> <span class="nn">scala.collection.JavaConverters._</span>
+      <span class="n">reduceF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">asScala</span><span class="o">.</span><span class="n">toSeq</span><span class="o">).</span><span class="n">foreach</span><span class="o">((</span><span class="n">context</span><span class="o">.</span><span class="n">write</span> <span class="k">_</span><span class="o">).</span><span class="n">tupled</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="o">(</span><span class="n">mapper</span><span class="o">,</span> <span class="n">reducer</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>There are few problems with this implementation:</p>
+
+<ul>
+  <li>MR API doesn’t allow passing mapper and reducer as values, they have to have static class names.</li>
+  <li>The types being used as input and output have to implement <code class="highlighter-rouge">Writable</code> interface, but this is not enforced on signatures level.</li>
+</ul>
+
+<p>Lets forget about these problems for a moment, because there is one more interesting thing we can do here!</p>
+
+<h2 id="unifying">Unifying</h2>
+
+<p>We have seen following implementations of the map-reduce model:</p>
+
+<ul>
+  <li>simple, <code class="highlighter-rouge">Seq</code>-based</li>
+  <li>collection agnostic, typeclass-based</li>
+  <li>generic but weak, <code class="highlighter-rouge">Iterable</code>-based</li>
+  <li>hadoop-specific</li>
+</ul>
+
+<p>They had slightly different signatures but maybe we can express them as one abstraction which will allow us to specify 
+a word-count, and then leave the implementation details to the user? Let’s try that!</p>
+
+<p>We will start with defining common interface for all the implementations. This interface will define our vocabulary
+(methods and types) which can also be called <em>algebra</em>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+
+  <span class="k">type</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+
+  <span class="k">type</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">mapF</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduceF</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Next, lets define our application, which will be a simple wordcount as seen before. We will inherit from the algebra trait
+and use the exposed vocabulary to define one more member.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">WordCount</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+
+  <span class="k">val</span> <span class="n">wordCount</span><span class="k">:</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">Any</span>, <span class="kt">String</span>, <span class="kt">String</span>, <span class="kt">Int</span>, <span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">mapReduce</span><span class="o">(</span>
+    <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">fromIterable</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">1</span><span class="o">))),</span>
+    <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="n">fromIterable</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="o">)))</span>
+  <span class="o">)</span>
+
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>We have the wordcount but we don’t know what it really is. To find out we will need <em>interpreters</em>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">SimpleImpl</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+
+  <span class="k">type</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+  <span class="k">type</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">mapF</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduceF</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">_</span>
+      <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">mapF</span><span class="o">.</span><span class="n">tupled</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">groupBy</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">_1</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">flatMap</span> <span class="o">{</span> <span class="k">case</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">reduceF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">_2</span><span class="o">))</span> <span class="o">}</span>
+      <span class="o">.</span><span class="n">toSeq</span>
+
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">it</span><span class="o">.</span><span class="n">toSeq</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats._</span>
+<span class="k">import</span> <span class="nn">cats.implicits._</span>
+  
+<span class="k">class</span> <span class="nc">TypeclassImpl</span><span class="o">[</span><span class="kt">CC</span><span class="o">[</span><span class="k">_</span><span class="o">]](</span><span class="k">implicit</span>
+  <span class="k">val</span> <span class="n">collMonad</span><span class="k">:</span> <span class="kt">Monad</span><span class="o">[</span><span class="kt">CC</span><span class="o">],</span>
+  <span class="k">val</span> <span class="n">collFoldable</span><span class="k">:</span> <span class="kt">Foldable</span><span class="o">[</span><span class="kt">CC</span><span class="o">],</span>
+  <span class="k">val</span> <span class="n">collMonoid</span><span class="k">:</span> <span class="kt">MonoidK</span><span class="o">[</span><span class="kt">CC</span><span class="o">]</span>
+<span class="o">)</span> <span class="k">extends</span> <span class="nc">MapReduce</span> <span class="o">{</span>
+
+  <span class="k">type</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="nc">CC</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+  <span class="k">type</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span> <span class="k">=</span> <span class="nc">CC</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">CC</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">mapF</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduceF</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">input</span> <span class="k">=&gt;</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">mappped</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)]</span> <span class="k">=</span> <span class="n">collMonad</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">input</span><span class="o">)(</span><span class="n">mapF</span><span class="o">.</span><span class="n">tupled</span><span class="o">)</span>
+      <span class="k">val</span> <span class="n">grouped</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">]]</span> <span class="k">=</span> <span class="n">mappped</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Map</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">]]().</span><span class="n">withDefaultValue</span><span class="o">(</span><span class="nc">Seq</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="n">state</span><span class="o">.</span><span class="n">updated</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">state</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
+      <span class="o">}</span>
+      <span class="k">val</span> <span class="n">reduced</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="n">collMonoid</span><span class="o">.</span><span class="n">empty</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)])</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="n">collMonoid</span><span class="o">.</span><span class="n">combineK</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="n">reduceF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">))</span>
+      <span class="o">}</span>
+      <span class="n">reduced</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">it</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="n">collMonoid</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">]){</span>
+    <span class="k">case</span> <span class="o">(</span><span class="n">coll</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">collMonoid</span><span class="o">.</span><span class="n">combineK</span><span class="o">(</span><span class="n">coll</span><span class="o">,</span> <span class="n">collMonad</span><span class="o">.</span><span class="n">pure</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">HadoopImpl</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+  <span class="k">import</span> <span class="nn">java.lang</span>
+  <span class="k">import</span> <span class="nn">org.apache.hadoop.mapreduce.</span><span class="o">{</span><span class="nc">Mapper</span><span class="o">,</span> <span class="nc">Reducer</span><span class="o">}</span>
+
+  <span class="k">type</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+
+  <span class="k">type</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">],</span> <span class="nc">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">])</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+    <span class="n">mapF</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
+    <span class="n">reduceF</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
+  <span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">],</span> <span class="nc">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">])</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">mapper</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">]</span> <span class="o">{</span>
+      <span class="k">override</span> <span class="k">def</span> <span class="n">map</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">mK</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">mV</span><span class="o">,</span> <span class="n">context</span><span class="k">:</span> <span class="kt">Mapper</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span><span class="o">]</span><span class="k">#</span><span class="nc">Context</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="n">mapF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">).</span><span class="n">foreach</span><span class="o">((</span><span class="n">context</span><span class="o">.</span><span class="n">write</span> <span class="k">_</span><span class="o">).</span><span class="n">tupled</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">val</span> <span class="n">reducer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span> <span class="o">{</span>
+      <span class="k">override</span> <span class="k">def</span> <span class="n">reduce</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">rK</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">lang.Iterable</span><span class="o">[</span><span class="kt">rV</span><span class="o">],</span> <span class="n">context</span><span class="k">:</span> <span class="kt">Reducer</span><span class="o">[</span><span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span><span class="k">#</span><span class="nc">Context</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="k">import</span> <span class="nn">scala.collection.JavaConverters._</span>
+        <span class="n">reduceF</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">asScala</span><span class="o">.</span><span class="n">toSeq</span><span class="o">).</span><span class="n">foreach</span><span class="o">((</span><span class="n">context</span><span class="o">.</span><span class="n">write</span> <span class="k">_</span><span class="o">).</span><span class="n">tupled</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="o">(</span><span class="n">mapper</span><span class="o">,</span> <span class="n">reducer</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">it</span><span class="o">.</span><span class="n">toSeq</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>That was quite easy, we just implemented the missing members in some concrete ways. 
+With interpreters in place we can finally use our wordcount. 
+It’s enough to just mix in the interpreter to the application definition to get some valuable piece of code.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">SimpleImplTest</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">impl</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">WordCount</span> <span class="k">with</span> <span class="nc">SimpleImpl</span>
+    <span class="k">val</span> <span class="n">wc</span> <span class="k">=</span> <span class="n">impl</span><span class="o">.</span><span class="n">wordCount</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"a b c"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"a b"</span><span class="o">)))</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">wc</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">TypeclassImplTest</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">import</span> <span class="nn">cats.implicits._</span>
+    <span class="k">val</span> <span class="n">impl</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">TypeclassImpl</span><span class="o">[</span><span class="kt">List</span><span class="o">]</span> <span class="k">with</span> <span class="nc">WordCount</span>
+    <span class="k">val</span> <span class="n">wc</span> <span class="k">=</span> <span class="n">impl</span><span class="o">.</span><span class="n">wordCount</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"a b c"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"a b"</span><span class="o">)))</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">wc</span><span class="o">)</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">HadoopImplTest</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">impl</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">WordCount</span> <span class="k">with</span> <span class="nc">HadoopImpl</span>
+    <span class="k">val</span> <span class="n">wc</span><span class="k">:</span> <span class="o">(</span><span class="kt">Mapper</span><span class="o">[</span><span class="kt">Any</span>, <span class="kt">String</span>, <span class="kt">String</span>, <span class="kt">Int</span><span class="o">],</span> <span class="nc">Reducer</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span>, <span class="kt">String</span>, <span class="kt">Int</span><span class="o">])</span> <span class="k">=</span> <span class="n">impl</span><span class="o">.</span><span class="n">wordCount</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">wc</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>The technique used here for unifying different implementations of the same problem is called <code class="highlighter-rouge">Object Algebras</code>.
+It is used as a ground concept in <a href="https://github.com/julienrf/endpoints/">julienrf/endpoints</a> library. 
+This article is just an example of using this technique and if you are curious what are the benefits and problems with it I encourage 
+to study it further. 
+Maybe I will have chance to present this concept more deeply on one of the scala conferences soon.</p>
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://w.pitula.me/2017/mapreduce/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '/2017/mapreduce'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//kreverspace.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+       })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2017 Wojciech Pituła. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-88803396-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    </div>
+  </body>
+</html>
