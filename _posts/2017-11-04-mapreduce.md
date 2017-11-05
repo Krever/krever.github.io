@@ -8,7 +8,7 @@ tags: [scala, bigdata]
 5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
 In this article we will see how to translate it to scala and how far we can push it's polimorphism.
 
-Sadly I wasn't able to find original tweet today, but f I remember correctly that's the essence i:
+Sadly I wasn't able to find original tweet today, but if I remember correctly that's the essence:
 
 ```haskell
 mapReduce :: (A -> [(B, C)]) -> (B -> [C] -> D) -> [A] -> [D]  
@@ -42,7 +42,7 @@ While haskell version is extremely elegant I'm a Scala fan, so lets translate it
   ): Seq[(mK, mV)] => Seq[(oK, oV)]
 ```
 I'm cheating a bit, because I modified the semantics so the input is a key-value pair instead of simple type, this gets us closer 
-to the Hadoop implementation. We got three key-value pairs, mapper input `(mK, mV)`, reducer input `(rK, rV)` and output `(oK, oV)`
+to the Hadoop implementation. We got three key-value pairs, mapper input `(mK, mV)`, reducer input `(rK, rV)` and output `(oK, oV)`.
 Now lets see how can we implement and run this method.
 
 ```scala
@@ -67,12 +67,12 @@ wordCount(Seq((null, "x y z"), (null, "x y")))
 // res1: Seq[(String, Int)] = Vector((z,1), (y,2), (x,2))
 ```
 
-So we could stop at this point, but lets go a little further and see what else can we do with this signature.
+We could stop at this point, but lets go a little further and see what else can we do with this signature.
 
 ## Generalization
 
 Let's try to make our implementation agnostic about the type of collection we are using and make it able to work with
-`List`s, `Set`s and other.
+`List`s, `Set`s and other collections.
 
 ### Typeclasses
 The first approach uses `cats` typeclasses to make sure chosen collection delivers all required operations.
@@ -354,7 +354,8 @@ object HadoopImplTest {
 ```
 
 The technique used here for unifying different implementations of the same problem is called `Object Algebras`.
-It is used as a ground concept in [julienrf/endpoints](https://github.com/julienrf/endpoints/) library. 
+It is used as a ground concept in [julienrf/endpoints](https://github.com/julienrf/endpoints/) library where we define an algebra for
+defining http endpoints and implement various interpreters for it. 
 This article is just an example of using this technique and if you are curious what are the benefits and problems with it I encourage 
 to study it further. 
 Maybe I will have chance to present this concept more deeply on one of the scala conferences soon.
