@@ -3,6 +3,21 @@
   
     
     <url>
+      <loc>http://w.pitula.me/2018/scalar-2018/</loc>
+      
+        <lastmod>2018-05-14T23:37:00+02:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
       <loc>http://w.pitula.me/2018/books-of-2017/</loc>
       
         <lastmod>2018-02-10T22:37:00+01:00</lastmod>
@@ -108,25 +123,12 @@
   
   
     
-    <url>
-      <loc>http://w.pitula.me/categories/</loc>
-      
-        <lastmod>2018-02-11T18:59:16+01:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
   
     
     <url>
       <loc>http://w.pitula.me/feed.xml</loc>
       
-        <lastmod>2018-02-11T18:59:16+01:00</lastmod>
+        <lastmod>2018-05-15T19:01:30+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -139,9 +141,9 @@
   
     
     <url>
-      <loc>http://w.pitula.me/</loc>
+      <loc>http://w.pitula.me/humans.txt</loc>
       
-        <lastmod>2018-02-11T18:59:16+01:00</lastmod>
+        <lastmod>2018-05-15T19:01:30+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -152,28 +154,15 @@
     </url>
     
   
-    
-    <url>
-      <loc>http://w.pitula.me/js/main.js</loc>
-      
-        <lastmod>2018-02-11T18:59:16+01:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
     
   
     
   
     
     <url>
-      <loc>http://w.pitula.me/tags/</loc>
+      <loc>http://w.pitula.me/css/main.css</loc>
       
-        <lastmod>2018-02-11T18:59:16+01:00</lastmod>
+        <lastmod>2018-05-15T19:01:30+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -182,6 +171,10 @@
         <priority>0.3</priority>
       
     </url>
+    
+  
+    
+  
     
   
 </urlset>

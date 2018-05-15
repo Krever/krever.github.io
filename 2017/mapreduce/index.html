@@ -4,9 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
 
   <title>MapReduce, Cats, collection-strawman and Object Algebras</title>
-  <meta name="description" content="Heuristically Optimized Person">
+  <meta name="description" content="5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
+In this article we will see how to translate it to scala and how far we can push it’s polimorphism.
+
+">
   <meta name="author" content="Wojciech Pituła">
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -15,12 +19,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Wojciech Pituła">
-  <meta name="twitter:description" content="Heuristically Optimized Person">
+  <meta name="twitter:title" content="MapReduce, Cats, collection-strawman and Object Algebras">
+  <meta name="twitter:description" content="5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
+In this article we will see how to translate it to scala and how far we can push it’s polimorphism.
+
+">
+  
+  <meta name="twitter:creator" content="Krever01">
+  
+  <meta name="twitter:image" content="/images/favicons/favicon-194x194.png" />
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Wojciech Pituła">
-  <meta property="og:description" content="Heuristically Optimized Person">
+  <meta property="og:title" content="MapReduce, Cats, collection-strawman and Object Algebras">
+  <meta property="og:description" content="5 months ago John DeGoes wrote nice tweet about expressing map-reduce model as haskell function signature.
+In this article we will see how to translate it to scala and how far we can push it’s polimorphism.
+
+">
+  <meta property="og:image" content="/images/favicons/favicon-194x194.png" />
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
@@ -41,9 +56,9 @@
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
-
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://w.pitula.me//2017/mapreduce/">
+  
+  <link rel="stylesheet" href="/css/main.css?1526403690047865541">
+  <link rel="canonical" href="http://w.pitula.me/2017/mapreduce/">
   <link rel="alternate" type="application/rss+xml" title="Wojciech Pituła" href="/feed.xml">
 </head>
 
@@ -53,7 +68,7 @@
   <i class="icon icon-list btn-mobile-menu__icon"></i>
   <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
 </span>
-  
+
 <header class="panel-cover" style="background-image: url(/images/cover.jpg)">
   <div class="panel-main">
 
@@ -78,7 +93,7 @@
 
           <nav class="cover-navigation navigation--social">
             <ul class="navigation">
-          
+
             
               <!-- Twitter -->
               <li class="navigation__item">
@@ -128,7 +143,7 @@
                 <span class="label">RSS</span>
               </a>
             </li>
-          
+
             </ul>
           </nav>
 
@@ -148,7 +163,10 @@
         <article class="post-container post-container--single">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="3 Nov 2017" class="post-meta__date date">3 Nov 2017</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#scala">scala</a> <a href="/tags/#bigdata">bigdata</a> </span>
+      <time datetime="2017-11-03 22:37" class="post-meta__date date">3 Nov 2017</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#scala">scala</a> <a href="/tags/#bigdata">bigdata</a> </span>
+      
     </div>
     <h1 class="post-title">MapReduce, Cats, collection-strawman and Object Algebras</h1>
   </header>
@@ -159,9 +177,8 @@ In this article we will see how to translate it to scala and how far we can push
 
 <p>Sadly I wasn’t able to find original tweet today, but if I remember correctly that’s the essence:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">A</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">B</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">C</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">A</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">D</span><span class="p">]</span>  
-</code></pre>
-</div>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">A</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">B</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">C</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">A</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">D</span><span class="p">]</span>  
+</code></pre></div></div>
 
 <p>Although this is completely correct, it’s not completely readable for humans. So I wrote a short response:</p>
 
@@ -172,9 +189,8 @@ In this article we will see how to translate it to scala and how far we can push
 
 <p>Here is the relevant content with highlighting:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Record</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Key</span><span class="p">,</span> <span class="kt">Mapped</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Key</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Mapped</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Reduced</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Record</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Reduced</span><span class="p">]</span>
-</code></pre>
-</div>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mapReduce</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Record</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Key</span><span class="p">,</span> <span class="kt">Mapped</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Key</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Mapped</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Reduced</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Record</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Reduced</span><span class="p">]</span>
+</code></pre></div></div>
 
 <p>So what is really happening here is that we take the mapping function (mapper) <code class="highlighter-rouge">(Record -&gt; [(Key, Mapped)])</code>
  and reducing function (reducer) <code class="highlighter-rouge">(Key -&gt; [Mapped] -&gt; Reduced)</code> and return the function that will take the set of
@@ -184,17 +200,16 @@ In this article we will see how to translate it to scala and how far we can push
 
 <p>While haskell version is extremely elegant I’m a Scala fan, so lets translate it.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
     <span class="n">map</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
     <span class="n">reduce</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
   <span class="o">)</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>I’m cheating a bit, because I modified the semantics so the input is a key-value pair instead of simple type, this gets us closer 
 to the Hadoop implementation. We got three key-value pairs, mapper input <code class="highlighter-rouge">(mK, mV)</code>, reducer input <code class="highlighter-rouge">(rK, rV)</code> and output <code class="highlighter-rouge">(oK, oV)</code>.
 Now lets see how can we implement and run this method.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
   <span class="n">map</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
   <span class="n">reduce</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
 <span class="o">)</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span>
@@ -213,8 +228,7 @@ Now lets see how can we implement and run this method.</p>
 </span>
 <span class="n">wordCount</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
 <span class="c1">// res1: Seq[(String, Int)] = Vector((z,1), (y,2), (x,2))
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>We could stop at this point, but lets go a little further and see what else can we do with this signature.</p>
 
@@ -226,7 +240,7 @@ Now lets see how can we implement and run this method.</p>
 <h3 id="typeclasses">Typeclasses</h3>
 <p>The first approach uses <code class="highlighter-rouge">cats</code> typeclasses to make sure chosen collection delivers all required operations.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats._</span>
 <span class="k">import</span> <span class="nn">cats.implicits._</span>
 
 <span class="k">class</span> <span class="nc">MapReduce</span><span class="o">[</span><span class="kt">Coll</span><span class="o">[</span><span class="k">_</span><span class="o">]](</span><span class="k">implicit</span>
@@ -258,8 +272,7 @@ Now lets see how can we implement and run this method.</p>
   <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="o">))</span>
 <span class="o">)</span>
 <span class="n">wordCount</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This implementation is by no means perfect, but works well enough. It got a bit more complicated though.</p>
 
@@ -268,7 +281,7 @@ Now lets see how can we implement and run this method.</p>
 <p>Second approach uses least specific type possible from standard library, which turns out to be <code class="highlighter-rouge">Iterable</code>. To make it more interesting we 
 will use scala 2.13 and upcoming collection-strawman.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
     <span class="n">map</span><span class="k">:</span> <span class="o">(</span><span class="kt">mK</span><span class="o">,</span> <span class="kt">mV</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Iterable</span><span class="o">[(</span><span class="kt">rK</span>, <span class="kt">rV</span><span class="o">)],</span>
     <span class="n">reduce</span><span class="k">:</span> <span class="o">(</span><span class="kt">rK</span><span class="o">,</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">rV</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Iterable</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
   <span class="o">)</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Iterable</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span> <span class="k">=</span>
@@ -285,8 +298,7 @@ will use scala 2.13 and upcoming collection-strawman.</p>
 
   <span class="n">wordCount</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
   <span class="n">wordCount</span><span class="o">(</span><span class="nc">Set</span><span class="o">((</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y z"</span><span class="o">),</span> <span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">"x y"</span><span class="o">)))</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Here we have gave up the control over the context in which we perform the computations, so the result type is always <code class="highlighter-rouge">Iterable</code>. 
 Thanks to that we gained bigger space of usages but have to convert the result to know for sure what collection we get.
@@ -297,7 +309,7 @@ This solution is not equivalent to typeclass-based but is simpler and may be goo
 <p>Now lets see how can we reuse the original signature to create something usable from Hadoop MR point of view.
 Instead of returning function we will return a pair of hadoop <code class="highlighter-rouge">Mapper</code> and <code class="highlighter-rouge">Reducer</code>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.lang</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.lang</span>
 <span class="k">import</span> <span class="nn">org.apache.hadoop.mapreduce.</span><span class="o">{</span><span class="nc">Mapper</span><span class="o">,</span> <span class="nc">Reducer</span><span class="o">}</span>
 
 <span class="k">def</span> <span class="n">mapReduce</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">](</span>
@@ -317,8 +329,7 @@ Instead of returning function we will return a pair of hadoop <code class="highl
   <span class="o">}</span>
   <span class="o">(</span><span class="n">mapper</span><span class="o">,</span> <span class="n">reducer</span><span class="o">)</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>There are few problems with this implementation:</p>
 
@@ -346,7 +357,7 @@ a word-count, and then leave the implementation details to the user? Let’s try
 <p>We will start with defining common interface for all the implementations. This interface will define our vocabulary
 (methods and types) which can also be called <em>algebra</em>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
 
   <span class="k">type</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
 
@@ -359,13 +370,12 @@ a word-count, and then leave the implementation details to the user? Let’s try
 
   <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Next, lets define our application, which will be a simple wordcount as seen before. We will inherit from the algebra trait
 and use the exposed vocabulary to define one more member.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">WordCount</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">WordCount</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
 
   <span class="k">val</span> <span class="n">wordCount</span><span class="k">:</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">Any</span>, <span class="kt">String</span>, <span class="kt">String</span>, <span class="kt">Int</span>, <span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">mapReduce</span><span class="o">(</span>
     <span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">fromIterable</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">1</span><span class="o">))),</span>
@@ -373,12 +383,11 @@ and use the exposed vocabulary to define one more member.</p>
   <span class="o">)</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We have the wordcount but we don’t know what it really is. To find out we will need <em>interpreters</em>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">SimpleImpl</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">SimpleImpl</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
 
   <span class="k">type</span> <span class="kt">Coll</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
   <span class="k">type</span> <span class="kt">Output</span><span class="o">[</span><span class="kt">mK</span>, <span class="kt">mV</span>, <span class="kt">rK</span>, <span class="kt">rV</span>, <span class="kt">oK</span>, <span class="kt">oV</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">mK</span>, <span class="kt">mV</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">Seq</span><span class="o">[(</span><span class="kt">oK</span>, <span class="kt">oV</span><span class="o">)]</span>
@@ -397,10 +406,9 @@ and use the exposed vocabulary to define one more member.</p>
 
   <span class="k">override</span> <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">it</span><span class="o">.</span><span class="n">toSeq</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats._</span>
 <span class="k">import</span> <span class="nn">cats.implicits._</span>
   
 <span class="k">class</span> <span class="nc">TypeclassImpl</span><span class="o">[</span><span class="kt">CC</span><span class="o">[</span><span class="k">_</span><span class="o">]](</span><span class="k">implicit</span>
@@ -432,10 +440,9 @@ and use the exposed vocabulary to define one more member.</p>
     <span class="k">case</span> <span class="o">(</span><span class="n">coll</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">collMonoid</span><span class="o">.</span><span class="n">combineK</span><span class="o">(</span><span class="n">coll</span><span class="o">,</span> <span class="n">collMonad</span><span class="o">.</span><span class="n">pure</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">HadoopImpl</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">HadoopImpl</span> <span class="k">extends</span> <span class="nc">MapReduceAlg</span> <span class="o">{</span>
   <span class="k">import</span> <span class="nn">java.lang</span>
   <span class="k">import</span> <span class="nn">org.apache.hadoop.mapreduce.</span><span class="o">{</span><span class="nc">Mapper</span><span class="o">,</span> <span class="nc">Reducer</span><span class="o">}</span>
 
@@ -463,14 +470,13 @@ and use the exposed vocabulary to define one more member.</p>
 
   <span class="k">override</span> <span class="k">def</span> <span class="n">fromIterable</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">it</span><span class="k">:</span> <span class="kt">Iterable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">it</span><span class="o">.</span><span class="n">toSeq</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>That was quite easy, we just implemented the missing members in some concrete ways. 
 With interpreters in place we can finally use our wordcount. 
 It’s enough to just mix in the interpreter to the application definition to get some valuable piece of code.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">SimpleImplTest</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">SimpleImplTest</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
     <span class="k">val</span> <span class="n">impl</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">WordCount</span> <span class="k">with</span> <span class="nc">SimpleImpl</span>
@@ -478,10 +484,9 @@ It’s enough to just mix in the interpreter to the application definition to ge
     <span class="n">println</span><span class="o">(</span><span class="n">wc</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">TypeclassImplTest</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">TypeclassImplTest</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
     <span class="k">import</span> <span class="nn">cats.implicits._</span>
@@ -491,10 +496,9 @@ It’s enough to just mix in the interpreter to the application definition to ge
   <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">HadoopImplTest</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">HadoopImplTest</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
     <span class="k">val</span> <span class="n">impl</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">WordCount</span> <span class="k">with</span> <span class="nc">HadoopImpl</span>
@@ -502,8 +506,7 @@ It’s enough to just mix in the interpreter to the application definition to ge
     <span class="n">println</span><span class="o">(</span><span class="n">wc</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The technique used here for unifying different implementations of the same problem is called <code class="highlighter-rouge">Object Algebras</code>.
 It is used as a ground concept in <a href="https://github.com/julienrf/endpoints/">julienrf/endpoints</a> library where we define an algebra for
@@ -538,20 +541,11 @@ Maybe I will have chance to present this concept more deeply on one of the scala
 
       <footer class="footer">
   <span class="footer__copyright">&copy; 2018 Wojciech Pituła. All rights reserved.</span>
-</footer> 
+</footer>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1526403690047865541"></script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-88803396-1', 'auto');
-  ga('send', 'pageview');
-</script>
 
     </div>
   </body>

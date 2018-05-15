@@ -4,9 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
 
   <title>static-config: 6-lines wrapper around typesafehub/config</title>
-  <meta name="description" content="Heuristically Optimized Person">
+  <meta name="description" content="I have just released static-config which is very small library that allows to scrap some boilerplate when working with typesafehub/config. Here you can find motivation for writing it.
+
+">
   <meta name="author" content="Wojciech Pituła">
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -15,12 +18,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Wojciech Pituła">
-  <meta name="twitter:description" content="Heuristically Optimized Person">
+  <meta name="twitter:title" content="static-config: 6-lines wrapper around typesafehub/config">
+  <meta name="twitter:description" content="I have just released static-config which is very small library that allows to scrap some boilerplate when working with typesafehub/config. Here you can find motivation for writing it.
+
+">
+  
+  <meta name="twitter:creator" content="Krever01">
+  
+  <meta name="twitter:image" content="/images/favicons/favicon-194x194.png" />
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Wojciech Pituła">
-  <meta property="og:description" content="Heuristically Optimized Person">
+  <meta property="og:title" content="static-config: 6-lines wrapper around typesafehub/config">
+  <meta property="og:description" content="I have just released static-config which is very small library that allows to scrap some boilerplate when working with typesafehub/config. Here you can find motivation for writing it.
+
+">
+  <meta property="og:image" content="/images/favicons/favicon-194x194.png" />
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
@@ -41,9 +53,9 @@
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
-
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://w.pitula.me//2016/static-config/">
+  
+  <link rel="stylesheet" href="/css/main.css?1526403690047865541">
+  <link rel="canonical" href="http://w.pitula.me/2016/static-config/">
   <link rel="alternate" type="application/rss+xml" title="Wojciech Pituła" href="/feed.xml">
 </head>
 
@@ -53,7 +65,7 @@
   <i class="icon icon-list btn-mobile-menu__icon"></i>
   <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
 </span>
-  
+
 <header class="panel-cover" style="background-image: url(/images/cover.jpg)">
   <div class="panel-main">
 
@@ -78,7 +90,7 @@
 
           <nav class="cover-navigation navigation--social">
             <ul class="navigation">
-          
+
             
               <!-- Twitter -->
               <li class="navigation__item">
@@ -128,7 +140,7 @@
                 <span class="label">RSS</span>
               </a>
             </li>
-          
+
             </ul>
           </nav>
 
@@ -148,7 +160,10 @@
         <article class="post-container post-container--single">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="16 Dec 2016" class="post-meta__date date">16 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#scala">scala</a> <a href="/tags/#projects">projects</a> </span>
+      <time datetime="2016-12-16 22:37" class="post-meta__date date">16 Dec 2016</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#scala">scala</a> <a href="/tags/#projects">projects</a> </span>
+      
     </div>
     <h1 class="post-title">static-config: 6-lines wrapper around typesafehub/config</h1>
   </header>
@@ -161,7 +176,7 @@
 <p>I tend to use <em>typesafehub/config</em> pretty extensively and in most cases I use it in similarly way:  <code class="highlighter-rouge">application.conf</code> in resources + wrapping object for type safe accessing of config entries. Here is small example:</p>
 
 <h5 id="applicationconf">application.conf</h5>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">my</span>-<span class="n">app</span> {
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my</span>-<span class="n">app</span> {
   <span class="n">app</span>-<span class="n">name</span> = <span class="s2">"My Fancy App"</span>
   <span class="n">kafka</span> {
     <span class="n">brokers</span> = [<span class="s2">"broker1"</span>, <span class="s2">"broker2"</span>]
@@ -172,11 +187,10 @@
   }
 }
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="configscala">Config.scala</h5>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">object</span> <span class="nc">Config</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">Config</span> <span class="o">{</span>
   <span class="k">val</span> <span class="n">config</span> <span class="k">=</span> <span class="nc">ConfigFactory</span><span class="o">.</span><span class="n">load</span><span class="o">().</span><span class="n">getConfig</span><span class="o">(</span><span class="s">"my-app"</span><span class="o">)</span>
   
   <span class="k">val</span> <span class="n">`app-name`</span> <span class="k">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getString</span><span class="o">(</span><span class="s">"app-name"</span><span class="o">)</span>
@@ -193,8 +207,7 @@
   <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As you can see, <code class="highlighter-rouge">Config</code> code is rather verbose. Every config entry is triplicated(application.conf, name of the variable and argument to the <code class="highlighter-rouge">getXY</code>. Moreover, for each entry we need to specify from which config we want to get our entry. That made me think.</p>
 
@@ -203,7 +216,7 @@
 
 <p>Here is above example written with <em>static-config</em>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.typesafe.config.</span><span class="o">{</span><span class="nc">Config</span><span class="o">,</span> <span class="nc">ConfigFactory</span><span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.typesafe.config.</span><span class="o">{</span><span class="nc">Config</span><span class="o">,</span> <span class="nc">ConfigFactory</span><span class="o">}</span>
 <span class="k">import</span> <span class="nn">staticconfig._</span>
 
 <span class="k">object</span> <span class="nc">SConfigExample</span> <span class="k">extends</span> <span class="nc">SConfig</span> <span class="o">{</span>
@@ -223,8 +236,7 @@
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>No boilerplate left! Success! (In fact we could make <code class="highlighter-rouge">ConfigFactory.load()</code> a default implementation of <code class="highlighter-rouge">config</code> but that has some drawbacks. Let’s just act like it is not there.)</p>
 
 <h3 id="how-it-works">How it works?</h3>
@@ -256,20 +268,11 @@
 
       <footer class="footer">
   <span class="footer__copyright">&copy; 2018 Wojciech Pituła. All rights reserved.</span>
-</footer> 
+</footer>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1526403690047865541"></script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-88803396-1', 'auto');
-  ga('send', 'pageview');
-</script>
 
     </div>
   </body>
