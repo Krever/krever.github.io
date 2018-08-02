@@ -11,3 +11,11 @@ cd _site
 git commit
 git push
 ```
+
+```
+curl -sSL https://get.rvm.io | bash
+source /Users/wojtek/.rvm/scripts/rvm
+rvm install 2.3
+rvm 2.3
+bundle install
+```
