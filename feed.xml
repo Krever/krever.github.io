@@ -5,9 +5,178 @@
     <description>Heuristically Optimized Person</description>
     <link>http://w.pitula.me/</link>
     <atom:link href="http://w.pitula.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 15 May 2018 19:01:30 +0200</pubDate>
-    <lastBuildDate>Tue, 15 May 2018 19:01:30 +0200</lastBuildDate>
+    <pubDate>Thu, 02 Aug 2018 17:51:51 +0300</pubDate>
+    <lastBuildDate>Thu, 02 Aug 2018 17:51:51 +0300</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Things you should know when traveling via the Big Data Engineering hype-train</title>
+        <description>&lt;p&gt;Maybe you want to join the Big Data world? Or maybe you are already there and want to validate your knowledge?
+Or maybe you just want to know what Big Data Engineers do and what skills they use? If so, you may find the following article quite useful.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-&quot;&gt;Why ?&lt;/h2&gt;
+
+&lt;p&gt;Half a year ago I left BigData world after 3 years of creating various data pipelines. Now I would like to share the knowledge I accumulated in this period before it becomes completely obsolete. This article tries to point out the things that I would like you to know if you were to become my coworker. These were also the things I asked candidates for Big Data Engineer position in my previous company.&lt;/p&gt;
+
+&lt;p&gt;I will try to not only point out relevant questions but also give brief answers to some of them. It’s important to remember that these answers are very far from comprehensive and to really understand the topic you need to research it on your own.&lt;/p&gt;
+
+&lt;p&gt;Don’t be afraid if you don’t know answers to some of these questions. Complete understanding of these topics is a requirement for a senior developer. For mid or junior positions the subset is enough.&lt;/p&gt;
+
+&lt;h2 id=&quot;analysis-vs-science-vs-engineering&quot;&gt;Analysis vs Science vs Engineering&lt;/h2&gt;
+&lt;p&gt;It’s a very popular question: what is the difference between data science, 
+data analysis and data engineering. It’s also quite difficult to answer this question. 
+Here is my understanding:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Data Analyst - a person who looks at the data and tries to answer some business questions based on it. He typically works with business intelligence tools or just MS Excel.&lt;/li&gt;
+  &lt;li&gt;Data Scientist - a person who plays with raw data, joins various data sources, do basic data processing, feeds data into machine learning models, tunes these models and in general, tries to get as much value from raw data as possible. He typically uses tools such as Python, R, Matlab, tensorflow and similar.&lt;/li&gt;
+  &lt;li&gt;Data Engineer - a software developer specialized in data transformation. His job is to take the data and make it useful to the business, but also make it in a way that will be maintainable in a long term. This broad description covers fetching data from various sources (ELK, Splunk, Hadoop, Kafka, Rest Apis, object storage and everything else), transforming it and serving to fulfil the business needs. He often works closely with data scientists to know how the data pipeline should look like, which ML model to use and so on.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For more detailed comparison as well as introduction of “Machine Learning Engineer” you can check out &lt;a href=&quot;https://www.oreilly.com/ideas/data-engineers-vs-data-scientists&quot;&gt;this awesone article&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Following paragraphs describe the knowledge needed by data engineers but it’s also relevant to data scientists as they use similar toolset but in a different way.&lt;/p&gt;
+
+&lt;h2 id=&quot;programming-language&quot;&gt;Programming language&lt;/h2&gt;
+
+&lt;p&gt;To efficiently develop data pipelines you need to be proficient with at least one of the following languages: &lt;strong&gt;Scala&lt;/strong&gt;, &lt;strong&gt;Java&lt;/strong&gt;, &lt;strong&gt;Python&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The choice really depends on your previous experience and on your workplace preference. If you’re wondering which one to learn right now I would go with &lt;strong&gt;Scala&lt;/strong&gt;. It’s the main language for Spark development, has the biggest number of examples and is the most expressive. Because of it’s functional and strongly-typed nature its also the safest of them.&lt;/p&gt;
+
+&lt;p&gt;Regardless of your chosen language, you have to have a basic understanding of the JVM, as it is the most popular platform for data processing. You will need to be able to diagnose and debug problems occurring on the JVM. Here is a couple of things to know:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How would you handle &lt;code class=&quot;highlighter-rouge&quot;&gt;OutOfMemeryException&lt;/code&gt;s being thrown?&lt;/li&gt;
+  &lt;li&gt;What is a garbage collector? What garbage collectors are available and what are the differences between them?&lt;/li&gt;
+  &lt;li&gt;How to use a profiler to find performance bottlenecks?&lt;/li&gt;
+  &lt;li&gt;How to connect debugger to a remote JVM?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hadoop-ecosystem&quot;&gt;Hadoop ecosystem&lt;/h2&gt;
+
+&lt;p&gt;Apache Hadoop is the most basic toolset for BigData Engineer. 
+You don’t need to know all the caveats of each of the tools but it is important to have a brief understanding of how they work, so you can communicate effectively and know what to study when needed.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is Apache Hadoop? - It’s set of a few different tools, not a single thing you can use. Most popular parts of this ecosystem are HDFS, Yarn, Hive, HBase and Oozie.&lt;/li&gt;
+  &lt;li&gt;What is HDFS? - It’s a distributed filesystem used to store data across the cluster.
+    &lt;ul&gt;
+      &lt;li&gt;What is a namenode and a datanode?&lt;/li&gt;
+      &lt;li&gt;What is a replication factor?&lt;/li&gt;
+      &lt;li&gt;What is a block size? How it affects performance and app development?&lt;/li&gt;
+      &lt;li&gt;What security mechanisms can we use to restrict data access on the cluster? What is Kerberos?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is Yarn? - It’s a resource manager responsible for assigning memory and cores to computing jobs.
+    &lt;ul&gt;
+      &lt;li&gt;What are schedulers and what schedulers are available by default?&lt;/li&gt;
+      &lt;li&gt;What are queues?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is Hive? - It’s a SQL layer on top of HDFS.
+    &lt;ul&gt;
+      &lt;li&gt;What is the connection between hive, hiveserver2, metastore and beeline.&lt;/li&gt;
+      &lt;li&gt;What is the difference between hive, pig and Impala?&lt;/li&gt;
+      &lt;li&gt;What are UDFs?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is HBase? - It’s a NoSQL database built on top of HDFS.
+    &lt;ul&gt;
+      &lt;li&gt;How it compares to Cassandra?&lt;/li&gt;
+      &lt;li&gt;Hot it fits into CAP theorem?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is Oozie? - It’s a workflow manager used to create data pipelines
+    &lt;ul&gt;
+      &lt;li&gt;What are alternatives to it?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What serialization formats do you know? - The most popular ones are Avro, orc, parquet, json and Hadoop object and text files.
+    &lt;ul&gt;
+      &lt;li&gt;What is a column-based format? How it differs from row-based format?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;apache-spark&quot;&gt;Apache Spark&lt;/h2&gt;
+
+&lt;p&gt;Apache Spark has become a go-to tool when doing data processing. It’s good to have some experience with it but it’s not critical. For me, it’s just another tool that exposes some API that you will have to learn. An experienced developer has learned hundreds of APIs and should not have a problem with learning yet another one. Still, there are few things worth knowing about it, even without real experience.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What are actions and transformations?&lt;/li&gt;
+  &lt;li&gt;What deployment modes are available?&lt;/li&gt;
+  &lt;li&gt;How is serialization and deserialization handled when crossing JVM boundaries? How it differs between RDD, Dataframe and Dataset APIs?&lt;/li&gt;
+  &lt;li&gt;What are shuffles? When they occur and how they affect performance?&lt;/li&gt;
+  &lt;li&gt;How do you do the stateful processing? Both in batch and streaming.&lt;/li&gt;
+  &lt;li&gt;What are Spark alternatives? - it’s probably the most important questions. You should have a basic understanding of MapReduce, Flink, Kafka Streams, Cascading/Scalding as well as not-clustered data processing tools like bash or some simple libraries(e.g. fs2 or Akka Streams).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;non-hadoop-tools&quot;&gt;Non-hadoop tools&lt;/h2&gt;
+
+&lt;p&gt;Sometimes its even more important to know the tools not directly connected to BigData. 
+One of the most critical skills of data engineer is to know when NOT to use BigData and 
+go with much simpler tooling.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What is Apache Kafka?
+    &lt;ul&gt;
+      &lt;li&gt;Kafka has become the go-to data streaming solution. You will hit it sooner or later.&lt;/li&gt;
+      &lt;li&gt;What is a topic?&lt;/li&gt;
+      &lt;li&gt;What is an offset?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is Redis?
+    &lt;ul&gt;
+      &lt;li&gt;It’s good to know at least on in-memory DB. Once you created your final dataset you need to know how to use it and in many cases, you will need to serve it fast.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is ELK stack?
+    &lt;ul&gt;
+      &lt;li&gt;Sonner or later you will need some search engine or dashboarding solution. Elasticsearch and Kibana are a good start.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is your experience with bash?
+    &lt;ul&gt;
+      &lt;li&gt;In many cases you will need a tolling that will allow you to play with your dataset in most flexible and least time-consuming way. 
+  You should be fluent with tools such as grep, cat, jq or awk that will allow you to filter, 
+  modify and aggregate your data without any overhead. They are not suitable for 
+  production usages but are perfect for experimentation and finding answers quickly.&lt;/li&gt;
+      &lt;li&gt;What good practices do you know when creating bash scripts?&lt;/li&gt;
+      &lt;li&gt;These area of expertise can be boosted with knowledge of other scripting technologies like python, ruby or ammonite.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What are probabilistic data structures?
+    &lt;ul&gt;
+      &lt;li&gt;When the volume of the data exceeds certain amounts its no longer feasible to make calculations with exact precisions. 
+  In such cases, you should know some basic probabilistic data structures such as a bloom filter or hyperloglog that will calculate things 
+  such as cardinality or set membership with controlled error rate.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What SQL databases do you know? What are their limitations?
+    &lt;ul&gt;
+      &lt;li&gt;It’s good to be familiar with at least one good old sql database. 
+  I can bet at least 30% of big data projects could just use postgres and throw all their spark/hadoop code away.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;This list is not comprehensive but it’s most probably not possible to create a comprehensive one. The exact requirements of your potential employer may differ from this list significantly, but being able answer those questions will give you a good base for future development.&lt;/p&gt;
+
+&lt;p&gt;If someone would like to complete this article with answers to those questions or add more topics (inline or via links) 
+feel free to open a PR through &lt;a href=&quot;https://github.com/Krever/krever.github.io&quot;&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 02 Aug 2018 00:37:00 +0300</pubDate>
+        <link>http://w.pitula.me/2018/data-engineer-must-know/</link>
+        <guid isPermaLink="true">http://w.pitula.me/2018/data-engineer-must-know/</guid>
+        
+        <category>big-data</category>
+        
+        
+        <category>software-development</category>
+        
+      </item>
     
       <item>
         <title>Scalar 2018 takeaways</title>
@@ -181,7 +350,7 @@ and even better than the last year. Below you can find links and main points I n
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Mon, 14 May 2018 23:37:00 +0200</pubDate>
+        <pubDate>Tue, 15 May 2018 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2018/scalar-2018/</link>
         <guid isPermaLink="true">http://w.pitula.me/2018/scalar-2018/</guid>
         
@@ -257,7 +426,7 @@ have to be fun to read and easy to digest so I don’t have to force myself to r
 &lt;a href=&quot;https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164&quot;&gt;The Clean Architecture&lt;/a&gt;.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 10 Feb 2018 22:37:00 +0100</pubDate>
+        <pubDate>Sun, 11 Feb 2018 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2018/books-of-2017/</link>
         <guid isPermaLink="true">http://w.pitula.me/2018/books-of-2017/</guid>
         
@@ -613,7 +782,7 @@ This article is just an example of using this technique and if you are curious w
 to study it further. 
 Maybe I will have chance to present this concept more deeply on one of the scala conferences soon.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 03 Nov 2017 22:37:00 +0100</pubDate>
+        <pubDate>Sat, 04 Nov 2017 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2017/mapreduce/</link>
         <guid isPermaLink="true">http://w.pitula.me/2017/mapreduce/</guid>
         
@@ -757,7 +926,7 @@ Maybe I will have chance to present this concept more deeply on one of the scala
 &lt;p&gt;So we can solve almost any problem without running our program! We don’t have loops, but who needs them anyway. And one more time we have proven that Scala type system is turing complete.&lt;/p&gt;
 
 </description>
-        <pubDate>Thu, 20 Apr 2017 23:37:00 +0200</pubDate>
+        <pubDate>Fri, 21 Apr 2017 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2017/typelevel-church-enc/</link>
         <guid isPermaLink="true">http://w.pitula.me/2017/typelevel-church-enc/</guid>
         
@@ -1002,7 +1171,7 @@ Relevancy: 6&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/DanielaSfregola/random-data-generator&quot;&gt;random-data-generator&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Fri, 07 Apr 2017 23:37:00 +0200</pubDate>
+        <pubDate>Sat, 08 Apr 2017 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2017/scalar-2017/</link>
         <guid isPermaLink="true">http://w.pitula.me/2017/scalar-2017/</guid>
         
@@ -1214,7 +1383,7 @@ Relevancy: 6&lt;/p&gt;
 &lt;/blockquote&gt;
 
 </description>
-        <pubDate>Sat, 25 Mar 2017 22:37:00 +0100</pubDate>
+        <pubDate>Sun, 26 Mar 2017 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2017/typeclasses-vs-polymorphism/</link>
         <guid isPermaLink="true">http://w.pitula.me/2017/typeclasses-vs-polymorphism/</guid>
         
@@ -1300,7 +1469,7 @@ Relevancy: 6&lt;/p&gt;
 &lt;h3 id=&quot;how-it-works&quot;&gt;How it works?&lt;/h3&gt;
 &lt;p&gt;I didn’t lie, this library has only 6 relevant lines of code. If you’re interested &lt;a href=&quot;https://github.com/Krever/static-config/blob/master/src/main/scala/staticconfig/SConfig.scala&quot;&gt;go and read it&lt;/a&gt;!&lt;/p&gt;
 </description>
-        <pubDate>Fri, 16 Dec 2016 22:37:00 +0100</pubDate>
+        <pubDate>Sat, 17 Dec 2016 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2016/static-config/</link>
         <guid isPermaLink="true">http://w.pitula.me/2016/static-config/</guid>
         
@@ -1541,7 +1710,7 @@ And the second one, a bit longer I’ve to admit:&lt;/p&gt;
 
 &lt;p&gt;One thing I have to confess is that I knowingly ignored all aspects of laws.For example &lt;code class=&quot;highlighter-rouge&quot;&gt;Monad&lt;/code&gt; has to obey these three monadic laws, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Monoid&lt;/code&gt; has some laws of his own(just as a &lt;code class=&quot;highlighter-rouge&quot;&gt;Functor&lt;/code&gt; does). You may treat this as a homework, to prove if they hold :)&lt;/p&gt;
 </description>
-        <pubDate>Sat, 10 Dec 2016 22:37:00 +0100</pubDate>
+        <pubDate>Sun, 11 Dec 2016 00:37:00 +0300</pubDate>
         <link>http://w.pitula.me/2016/monad-proof/</link>
         <guid isPermaLink="true">http://w.pitula.me/2016/monad-proof/</guid>
         

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>Things you should know when traveling via the Big Data Engineering hype-train</title>
+  <meta name="description" content="Maybe you want to join the Big Data world? Or maybe you are already there and want to validate your knowledge?
+Or maybe you just want to know what Big Data Engineers do and what skills they use? If so, you may find the following article quite useful.
+
+">
+  <meta name="author" content="Wojciech Pituła">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Things you should know when traveling via the Big Data Engineering hype-train">
+  <meta name="twitter:description" content="Maybe you want to join the Big Data world? Or maybe you are already there and want to validate your knowledge?
+Or maybe you just want to know what Big Data Engineers do and what skills they use? If so, you may find the following article quite useful.
+
+">
+  
+  <meta name="twitter:creator" content="Krever01">
+  
+  <meta name="twitter:image" content="/images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Things you should know when traveling via the Big Data Engineering hype-train">
+  <meta property="og:description" content="Maybe you want to join the Big Data world? Or maybe you are already there and want to validate your knowledge?
+Or maybe you just want to know what Big Data Engineers do and what skills they use? If so, you may find the following article quite useful.
+
+">
+  <meta property="og:image" content="/images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  
+  <link rel="stylesheet" href="/css/main.css?1533221511470326000">
+  <link rel="canonical" href="http://w.pitula.me/2018/data-engineer-must-know/">
+  <link rel="alternate" type="application/rss+xml" title="Wojciech Pituła" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Wojciech Pituła">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Wojciech Pituła</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Heuristically Optimized Person</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Wojciech Pituła blog" class="blog-button">Blog</a></li>
+              <li class="navigation__item"><a href="http://w.pitula.me/presentations" title="link to my presentations">Presentations</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/Krever01" title="@Krever01 on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/krever" title="krever on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/Krever" title="Krever on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:w.pitula@gmail.com" title="Email w.pitula@gmail.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-08-02 00:37" class="post-meta__date date">2 Aug 2018</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#big-data">big-data</a> </span>
+      
+    </div>
+    <h1 class="post-title">Things you should know when traveling via the Big Data Engineering hype-train</h1>
+  </header>
+
+  <section class="post">
+    <p>Maybe you want to join the Big Data world? Or maybe you are already there and want to validate your knowledge?
+Or maybe you just want to know what Big Data Engineers do and what skills they use? If so, you may find the following article quite useful.</p>
+
+<h2 id="why-">Why ?</h2>
+
+<p>Half a year ago I left BigData world after 3 years of creating various data pipelines. Now I would like to share the knowledge I accumulated in this period before it becomes completely obsolete. This article tries to point out the things that I would like you to know if you were to become my coworker. These were also the things I asked candidates for Big Data Engineer position in my previous company.</p>
+
+<p>I will try to not only point out relevant questions but also give brief answers to some of them. It’s important to remember that these answers are very far from comprehensive and to really understand the topic you need to research it on your own.</p>
+
+<p>Don’t be afraid if you don’t know answers to some of these questions. Complete understanding of these topics is a requirement for a senior developer. For mid or junior positions the subset is enough.</p>
+
+<h2 id="analysis-vs-science-vs-engineering">Analysis vs Science vs Engineering</h2>
+<p>It’s a very popular question: what is the difference between data science, 
+data analysis and data engineering. It’s also quite difficult to answer this question. 
+Here is my understanding:</p>
+
+<ul>
+  <li>Data Analyst - a person who looks at the data and tries to answer some business questions based on it. He typically works with business intelligence tools or just MS Excel.</li>
+  <li>Data Scientist - a person who plays with raw data, joins various data sources, do basic data processing, feeds data into machine learning models, tunes these models and in general, tries to get as much value from raw data as possible. He typically uses tools such as Python, R, Matlab, tensorflow and similar.</li>
+  <li>Data Engineer - a software developer specialized in data transformation. His job is to take the data and make it useful to the business, but also make it in a way that will be maintainable in a long term. This broad description covers fetching data from various sources (ELK, Splunk, Hadoop, Kafka, Rest Apis, object storage and everything else), transforming it and serving to fulfil the business needs. He often works closely with data scientists to know how the data pipeline should look like, which ML model to use and so on.</li>
+</ul>
+
+<p>For more detailed comparison as well as introduction of “Machine Learning Engineer” you can check out <a href="https://www.oreilly.com/ideas/data-engineers-vs-data-scientists">this awesone article</a>.</p>
+
+<p>Following paragraphs describe the knowledge needed by data engineers but it’s also relevant to data scientists as they use similar toolset but in a different way.</p>
+
+<h2 id="programming-language">Programming language</h2>
+
+<p>To efficiently develop data pipelines you need to be proficient with at least one of the following languages: <strong>Scala</strong>, <strong>Java</strong>, <strong>Python</strong>.</p>
+
+<p>The choice really depends on your previous experience and on your workplace preference. If you’re wondering which one to learn right now I would go with <strong>Scala</strong>. It’s the main language for Spark development, has the biggest number of examples and is the most expressive. Because of it’s functional and strongly-typed nature its also the safest of them.</p>
+
+<p>Regardless of your chosen language, you have to have a basic understanding of the JVM, as it is the most popular platform for data processing. You will need to be able to diagnose and debug problems occurring on the JVM. Here is a couple of things to know:</p>
+
+<ul>
+  <li>How would you handle <code class="highlighter-rouge">OutOfMemeryException</code>s being thrown?</li>
+  <li>What is a garbage collector? What garbage collectors are available and what are the differences between them?</li>
+  <li>How to use a profiler to find performance bottlenecks?</li>
+  <li>How to connect debugger to a remote JVM?</li>
+</ul>
+
+<h2 id="hadoop-ecosystem">Hadoop ecosystem</h2>
+
+<p>Apache Hadoop is the most basic toolset for BigData Engineer. 
+You don’t need to know all the caveats of each of the tools but it is important to have a brief understanding of how they work, so you can communicate effectively and know what to study when needed.</p>
+
+<ul>
+  <li>What is Apache Hadoop? - It’s set of a few different tools, not a single thing you can use. Most popular parts of this ecosystem are HDFS, Yarn, Hive, HBase and Oozie.</li>
+  <li>What is HDFS? - It’s a distributed filesystem used to store data across the cluster.
+    <ul>
+      <li>What is a namenode and a datanode?</li>
+      <li>What is a replication factor?</li>
+      <li>What is a block size? How it affects performance and app development?</li>
+      <li>What security mechanisms can we use to restrict data access on the cluster? What is Kerberos?</li>
+    </ul>
+  </li>
+  <li>What is Yarn? - It’s a resource manager responsible for assigning memory and cores to computing jobs.
+    <ul>
+      <li>What are schedulers and what schedulers are available by default?</li>
+      <li>What are queues?</li>
+    </ul>
+  </li>
+  <li>What is Hive? - It’s a SQL layer on top of HDFS.
+    <ul>
+      <li>What is the connection between hive, hiveserver2, metastore and beeline.</li>
+      <li>What is the difference between hive, pig and Impala?</li>
+      <li>What are UDFs?</li>
+    </ul>
+  </li>
+  <li>What is HBase? - It’s a NoSQL database built on top of HDFS.
+    <ul>
+      <li>How it compares to Cassandra?</li>
+      <li>Hot it fits into CAP theorem?</li>
+    </ul>
+  </li>
+  <li>What is Oozie? - It’s a workflow manager used to create data pipelines
+    <ul>
+      <li>What are alternatives to it?</li>
+    </ul>
+  </li>
+  <li>What serialization formats do you know? - The most popular ones are Avro, orc, parquet, json and Hadoop object and text files.
+    <ul>
+      <li>What is a column-based format? How it differs from row-based format?</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="apache-spark">Apache Spark</h2>
+
+<p>Apache Spark has become a go-to tool when doing data processing. It’s good to have some experience with it but it’s not critical. For me, it’s just another tool that exposes some API that you will have to learn. An experienced developer has learned hundreds of APIs and should not have a problem with learning yet another one. Still, there are few things worth knowing about it, even without real experience.</p>
+
+<ul>
+  <li>What are actions and transformations?</li>
+  <li>What deployment modes are available?</li>
+  <li>How is serialization and deserialization handled when crossing JVM boundaries? How it differs between RDD, Dataframe and Dataset APIs?</li>
+  <li>What are shuffles? When they occur and how they affect performance?</li>
+  <li>How do you do the stateful processing? Both in batch and streaming.</li>
+  <li>What are Spark alternatives? - it’s probably the most important questions. You should have a basic understanding of MapReduce, Flink, Kafka Streams, Cascading/Scalding as well as not-clustered data processing tools like bash or some simple libraries(e.g. fs2 or Akka Streams).</li>
+</ul>
+
+<h2 id="non-hadoop-tools">Non-hadoop tools</h2>
+
+<p>Sometimes its even more important to know the tools not directly connected to BigData. 
+One of the most critical skills of data engineer is to know when NOT to use BigData and 
+go with much simpler tooling.</p>
+
+<ul>
+  <li>What is Apache Kafka?
+    <ul>
+      <li>Kafka has become the go-to data streaming solution. You will hit it sooner or later.</li>
+      <li>What is a topic?</li>
+      <li>What is an offset?</li>
+    </ul>
+  </li>
+  <li>What is Redis?
+    <ul>
+      <li>It’s good to know at least on in-memory DB. Once you created your final dataset you need to know how to use it and in many cases, you will need to serve it fast.</li>
+    </ul>
+  </li>
+  <li>What is ELK stack?
+    <ul>
+      <li>Sonner or later you will need some search engine or dashboarding solution. Elasticsearch and Kibana are a good start.</li>
+    </ul>
+  </li>
+  <li>What is your experience with bash?
+    <ul>
+      <li>In many cases you will need a tolling that will allow you to play with your dataset in most flexible and least time-consuming way. 
+  You should be fluent with tools such as grep, cat, jq or awk that will allow you to filter, 
+  modify and aggregate your data without any overhead. They are not suitable for 
+  production usages but are perfect for experimentation and finding answers quickly.</li>
+      <li>What good practices do you know when creating bash scripts?</li>
+      <li>These area of expertise can be boosted with knowledge of other scripting technologies like python, ruby or ammonite.</li>
+    </ul>
+  </li>
+  <li>What are probabilistic data structures?
+    <ul>
+      <li>When the volume of the data exceeds certain amounts its no longer feasible to make calculations with exact precisions. 
+  In such cases, you should know some basic probabilistic data structures such as a bloom filter or hyperloglog that will calculate things 
+  such as cardinality or set membership with controlled error rate.</li>
+    </ul>
+  </li>
+  <li>What SQL databases do you know? What are their limitations?
+    <ul>
+      <li>It’s good to be familiar with at least one good old sql database. 
+  I can bet at least 30% of big data projects could just use postgres and throw all their spark/hadoop code away.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+<p>This list is not comprehensive but it’s most probably not possible to create a comprehensive one. The exact requirements of your potential employer may differ from this list significantly, but being able answer those questions will give you a good base for future development.</p>
+
+<p>If someone would like to complete this article with answers to those questions or add more topics (inline or via links) 
+feel free to open a PR through <a href="https://github.com/Krever/krever.github.io">GitHub repo</a>.</p>
+
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://w.pitula.me/2018/data-engineer-must-know/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '/2018/data-engineer-must-know'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//kreverspace.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+       })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2018 Wojciech Pituła. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1533221511470326000"></script>
+
+
+    </div>
+  </body>
+</html>
