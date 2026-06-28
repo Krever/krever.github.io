@@ -1,30 +1,147 @@
----
-layout: default
-robots: noindex
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wojciech (Voytek) Pituła</title>
+  <meta name="description" content="Wojciech (Voytek) Pituła — Staff Software Engineer, book addict, occasional conference speaker.">
 
-<div class="main-post-list">
+  <!-- Favicons (frozen from the old site) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
 
-  <ol class="post-list">
-    {% for post in paginator.posts %}
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="{{ site.baseurl }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-        <p class="excerpt">{{ post.excerpt | strip_html }}&hellip;</p>
-        <div class="post-list__meta">
-            <time datetime="{{ post.date | date: "%Y-%m-%d %H:%M" }}" class="post-list__meta--date date">{{ post.date | date: "%-d %b %Y" }}</time>
-            {% if post.tags.size > 0 %}
-            &#8226; <span class="post-meta__tags">on {% for tag in post.tags %}<a href="{{ site.baseurl }}/tags/#{{ tag }}">{{ tag }}</a> {% endfor %}</span>
-            {% endif %}
-        </div>
-        <hr class="post-list__divider">
-      </li>
-    {% endfor %}
-  </ol>
+  <style>
+    :root {
+      --fg: #1a1a1a;
+      --muted: #6b6b6b;
+      --accent: #1a1a1a;
+      --bg: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg: #ededed; --muted: #9a9a9a; --accent: #ededed; --bg: #111111; }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+    main { max-width: 720px; width: 100%; }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 1.5rem;
+      line-height: 1.05;
+    }
+    .rule {
+      border: 0;
+      border-top: 1px solid color-mix(in srgb, var(--fg) 18%, transparent);
+      width: 100%;
+      max-width: 560px;
+      margin: 1.5rem auto;
+    }
+    .subtitle {
+      font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+      font-weight: 300;
+      color: var(--fg);
+      line-height: 1.5;
+      margin: 0 auto 2rem;
+      max-width: 620px;
+    }
+    .social {
+      display: flex;
+      gap: 1.4rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0 0 0.5rem;
+    }
+    .social a {
+      color: var(--fg);
+      opacity: 0.75;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+    }
+    .social a:hover { opacity: 1; transform: translateY(-2px); }
+    .social svg { width: 26px; height: 26px; fill: currentColor; }
+    nav {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.9rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.05rem;
+    }
+    nav a {
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    nav a:hover { border-bottom-color: var(--fg); }
+    nav .sep { color: var(--muted); user-select: none; }
+    footer { margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Hey, I'm Voytek.</h1>
+    <hr class="rule">
+    <p class="subtitle">A Staff Software Engineer, book addict, occasional conference speaker, father of two, libertarian paternalist, and hopefully a decent human being.</p>
 
-  <hr class="post-list__divider ">
+    <!-- Social icons -->
+    <div class="social">
+      <!-- X / Twitter -->
+      <a href="https://x.com/Krever01" title="X (Twitter)" target="_blank" rel="me noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <!-- Bluesky -->
+      <a href="https://bsky.app/profile/krever01.bsky.social" title="Bluesky" target="_blank" rel="me noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.07 3.32C7.7 5.29 10.53 9.3 11.57 11.45c.27.56.27.86 0 1.42C10.53 15.02 7.7 19.03 5.07 21c-1.4 1.05-3.57.97-3.57-1.65 0-.53.3-4.43.49-5.06.65-2.2 2.97-2.95 5.08-2.69-3.2-.47-6.76-1.34-7.07-4.9C0 6.42 0 5.06 0 4.65.0 2.03 2.17.95 3.57 2 .96 3.05 5.07 3.32 5.07 3.32zm13.86 0C16.3 5.29 13.47 9.3 12.43 11.45c-.27.56-.27.86 0 1.42 1.04 2.15 3.87 6.16 6.5 8.13 1.4 1.05 3.57.97 3.57-1.65 0-.53-.3-4.43-.49-5.06-.65-2.2-2.97-2.95-5.08-2.69 3.2-.47 6.76-1.34 7.07-4.9.07-.31.07-1.67.07-2.08C24 2.03 21.83.95 20.43 2c-1.4 1.05-1.5 1.32-1.5 1.32z"/></svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/krever/" title="LinkedIn" target="_blank" rel="me noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+      </a>
+      <!-- GitHub -->
+      <a href="https://github.com/Krever" title="GitHub" target="_blank" rel="me noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+      </a>
+      <!-- Medium -->
+      <a href="https://medium.com/@w.pitula" title="Medium" target="_blank" rel="me noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42S20.96 8.46 20.96 12zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+      </a>
+    </div>
 
-  {% if paginator.previous_page or paginator.next_page %}
-      {% include pagination.html %}
-  {% endif %}
+    <hr class="rule">
 
-</div>
+    <!-- Navigation -->
+    <nav>
+      <a href="https://w.pitula.me/presentations" target="_blank" rel="noopener">Presentations</a>
+      <span class="sep">&middot;</span>
+      <a href="https://w.pitula.me/fintech-engineering-handbook" target="_blank" rel="noopener">Fintech Handbook</a>
+      <span class="sep">&middot;</span>
+      <a href="https://medium.com/@w.pitula" target="_blank" rel="noopener">Blog</a>
+      <span class="sep">&middot;</span>
+      <a href="https://tandu.app" target="_blank" rel="noopener">Tandu</a>
+      <span class="sep">&middot;</span>
+      <a href="https://business4s.org" target="_blank" rel="noopener">Business4s</a>
+    </nav>
+  </main>
+</body>
+</html>
